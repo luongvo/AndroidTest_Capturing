@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import vn.luongvo.androidtest.capturing.R;
 
 /**
- * @author Luong
+ * Created by Luong Vo on 2/17/16.
  */
 public class NextActivity extends AppCompatActivity {
 
