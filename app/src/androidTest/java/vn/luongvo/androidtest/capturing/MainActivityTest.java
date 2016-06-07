@@ -1,6 +1,5 @@
 package vn.luongvo.androidtest.capturing;
 
-import android.os.SystemClock;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -31,9 +30,6 @@ public class MainActivityTest {
         onView(withText("TextView")).check(matches(isDisplayed()));
         onView(withText("CheckBox")).check(matches(isDisplayed()));
         onView(withText("Next Screen")).check(matches(isDisplayed()));
-
-        // sleep 10s to keep this test case is long enough
-        SystemClock.sleep(10000);
     }
 
     @Test
