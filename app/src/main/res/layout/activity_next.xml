@@ -11,7 +11,6 @@
               tools:context="vn.luongvo.androidtest.capturing.MainActivity">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -20,16 +19,8 @@
         android:text="TextView"/>
 
     <CheckBox
-        android:id="@+id/checkBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="CheckBox"/>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Next Screen"/>
-
 
 </LinearLayout>
