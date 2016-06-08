@@ -1,5 +1,5 @@
 # AndroidTest_Capturing
-Auto capture device screens to video file and pull into pc local folder when run test on Android
+Auto capture device screens to video file and pull them into pc local folder when run test on multiple Android devices
 
 ## Prepare
 - Copy `run_test+record.sh`, `test.sh`, `adb+.sh` and `adb+nophup.sh` into your android project repo.
