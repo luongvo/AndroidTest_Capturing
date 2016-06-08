@@ -14,7 +14,8 @@ do
     if [ ! "$line" = "" ] && [ `echo $line | awk '{print $2}'` = "device" ]
     then
         device=`echo $line | awk '{print $1}'`
-        echo "$device $@ ..."
-        nohup adb -s $device $@ > /dev/null 2>&1&
+        cmd="$1/$device$2"
+        echo "$device $cmd ..."
+        nohup adb -s $device $cmd > /dev/null 2>&1&
     fi
 done

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 FOLDER_NAME="ANDROID_TEST_VIDEO"
-FILE_NAME="screenrecord.mp4"
+FILE_NAME=".mp4"
 
 # video folder
 ./adb+.sh shell mkdir /sdcard/$FOLDER_NAME
@@ -8,7 +8,7 @@ FILE_NAME="screenrecord.mp4"
 
 echo
 echo 'SCREEN_RECORD IS STARTING...'
-./adb+nohub.sh shell screenrecord /sdcard/$FOLDER_NAME/$FILE_NAME
+./adb+nohub.sh "shell screenrecord /sdcard/$FOLDER_NAME" "$FILE_NAME"
 
 # call test
 echo
