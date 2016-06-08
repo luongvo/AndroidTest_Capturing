@@ -15,6 +15,6 @@ do
     then
         device=`echo $line | awk '{print $1}'`
         echo "$device $@ ..."
-        adb -s $device $@
+        nohup adb -s $device $@ > /dev/null 2>&1&
     fi
 done
