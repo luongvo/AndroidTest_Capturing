@@ -12,7 +12,7 @@ rm -rf ./$FOLDER_NAME/*
 
 echo
 echo 'SCREEN_RECORD IS STARTING...'
-./adb+nohub.sh "shell screenrecord /sdcard/$FOLDER_NAME" "$FILE_NAME"
+./adb+nohup.sh "shell screenrecord /sdcard/$FOLDER_NAME" "$FILE_NAME"
 
 # call test
 echo
