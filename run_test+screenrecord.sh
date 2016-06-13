@@ -4,15 +4,15 @@ FILE_NAME=".mp4"
 
 # prepare video folder
 # device
-./adb+.sh shell mkdir /sdcard/$FOLDER_NAME
-./adb+.sh shell rm -rf /sdcard/$FOLDER_NAME/*
+./automate-tests-resources/adb+.sh shell mkdir /sdcard/$FOLDER_NAME
+./automate-tests-resources/adb+.sh shell rm -rf /sdcard/$FOLDER_NAME/*
 # local pc
 mkdir ./$FOLDER_NAME
 rm -rf ./$FOLDER_NAME/*
 
 echo
 echo 'SCREEN_RECORD IS STARTING...'
-./adb+nohup.sh "shell screenrecord /sdcard/$FOLDER_NAME" "$FILE_NAME"
+./automate-tests-resources/adb+nohup.sh "shell screenrecord /sdcard/$FOLDER_NAME" "$FILE_NAME"
 
 # call test
 echo
@@ -21,9 +21,9 @@ echo
 # test finish, list all nohup processes
 echo
 echo "screenshot process list"
-ps | grep screenrecord
+ps | grep "shell screenrecord"
 # then kill all
-ps | grep screenrecord | grep -v grep | awk '{print $1}' | xargs kill -9
+ps | grep "shell screenrecord" | grep -v grep | awk '{print $1}' | xargs kill -9
 echo
 echo 'SCREEN_RECORD IS STOPPED...'
 echo "Test video is located at /sdcard/$FOLDER_NAME"
@@ -36,6 +36,6 @@ do
 done
 
 # copy video from devices into pc
-./adb+.sh pull /sdcard/$FOLDER_NAME ./$FOLDER_NAME/
+./automate-tests-resources/adb+.sh pull /sdcard/$FOLDER_NAME ./$FOLDER_NAME/
 
 echo "Test video is pulled into ./$FOLDER_NAME"
