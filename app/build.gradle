@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 23
@@ -18,6 +19,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            testCoverageEnabled = true
+        }
     }
 }
 
@@ -29,4 +34,39 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+}
+
+def coveragePhoneSourceDir = "${project.projectDir}/src/java"
+def mutualSourceDir = "${project.projectDir}/src/main/java"
+
+// The task will only run if coverage data is available.
+// So we add test in dependsOn
+task jacocoTestReport(type: JacocoReport, dependsOn: 'connectedAndroidTest') {
+    group = 'Reporting'
+    description = 'Generate Jacoco coverage reports after running tests.'
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    // use hidden configuration, for details look into JacocoPlugin.groovy
+    jacocoClasspath = project.configurations['androidJacocoAnt']
+
+    // exclude auto-generated classes and tests
+    def fileFilter = ['**/R.class',
+                      '**/R$*.class',
+                      '**/BuildConfig.*',
+                      '**/*$ViewBinder*.*',
+                      '**/Manifest*.*',
+                      '**/*Test*.*',
+                      'android/**/*.*',
+                      'io/realm/*.*']
+    def debugTree = fileTree(dir: "${project.buildDir}/intermediates/classes/development/debug",
+            excludes: fileFilter)
+
+    sourceDirectories = files([coveragePhoneSourceDir])
+    additionalSourceDirs = files(mutualSourceDir)
+    classDirectories = files([debugTree])
+    executionData = files("$buildDir/outputs/code-coverage/connected/flavors/DEVELOPMENT/coverage.ec")
 }

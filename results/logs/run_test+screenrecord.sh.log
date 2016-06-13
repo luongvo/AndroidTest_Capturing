@@ -1,0 +1,22 @@
+./automate-tests/run_test+screenrecord.sh: line 20: ./adb+.sh: No such file or directory
+./automate-tests/run_test+screenrecord.sh: line 21: ./adb+.sh: No such file or directory
+
+SCREEN_RECORD IS STARTING...
+./automate-tests/run_test+screenrecord.sh: line 25: ./adb+nohup.sh: No such file or directory
+
+./automate-tests/run_test+screenrecord.sh: line 30: ./test.sh: No such file or directory
+./automate-tests/run_test+screenrecord.sh: line 31: cd: automate-tests: No such file or directory
+
+screenshot process list
+14133 ttys005    0:00.00 grep shell screenrecord
+
+SCREEN_RECORD IS STOPPED...
+Test video is located at /sdcard/ANDROID_TEST_VIDEO
+Waiting for video render...5
+Waiting for video render...4
+Waiting for video render...3
+Waiting for video render...2
+Waiting for video render...1
+./automate-tests/run_test+screenrecord.sh: line 51: ./adb+.sh: No such file or directory
+
+Automate tests results is located at ./automate-tests/results in this repo folder
