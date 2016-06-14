@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 BASE_DIR="automate-tests"
 VIDEO_DIR="$BASE_DIR/videos"
 FILE_NAME=".mp4"
@@ -16,8 +16,8 @@ mkdir results/videos
 exec &> >(tee -a "results/logs/run_test+screenrecord.sh.log")
 
 # prepare video folder on devices
+./adb+.sh shell rm -R /sdcard/$BASE_DIR
 ./adb+.sh shell mkdir /sdcard/$BASE_DIR
-./adb+.sh shell rm -rf /sdcard/$BASE_DIR/*
 ./adb+.sh shell mkdir /sdcard/$VIDEO_DIR
 
 echo
@@ -48,7 +48,7 @@ do
 done
 
 # copy video from devices into pc
-./adb+.sh pull /sdcard/$VIDEO_DIR results
+./adb+.sh pull /sdcard/$VIDEO_DIR results/videos
 
 echo
 echo "Automate tests results is located at ./$BASE_DIR/results in this repo folder"
