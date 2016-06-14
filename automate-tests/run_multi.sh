@@ -1,7 +1,5 @@
 #!/bin/bash
-BASE_DIR="automate-tests"
-VIDEO_DIR="$BASE_DIR/videos"
-FILE_NAME=".mp4"
+. config.properties
 
 # prepare
 cur_dir=$(dirname "$0")
@@ -12,7 +10,7 @@ mkdir results
 mkdir results/logs
 mkdir results/videos
 
-# create log file
+# create log
 exec &> >(tee -a "results/logs/run_test+screenrecord.sh.log")
 
 # prepare video folder on devices
@@ -20,35 +18,24 @@ exec &> >(tee -a "results/logs/run_test+screenrecord.sh.log")
 ./adb+.sh shell mkdir /sdcard/$BASE_DIR
 ./adb+.sh shell mkdir /sdcard/$VIDEO_DIR
 
-echo
-echo 'SCREEN_RECORD IS STARTING...'
+# run screenrecord
+echo $'\nScreenrecord is starting...'
 ./adb+nohup.sh "shell screenrecord /sdcard/$VIDEO_DIR" "$FILE_NAME"
+echo
 
 # call test
-echo
 cd ..
 ./test.sh
 cd $BASE_DIR
 
-# test finish, list all nohup processes
-echo
-echo "screenshot process list"
-ps | grep "shell screenrecord"
-# then kill all
+# stop screenrecord
 ps | grep "shell screenrecord" | grep -v grep | awk '{print $1}' | xargs kill -9
-echo
-echo 'SCREEN_RECORD IS STOPPED...'
+echo $'\nScreenrecord is stopped...'
 echo "Test video is located at /sdcard/$VIDEO_DIR"
 
-# sleep for video render
-for i in `seq 3 1`;
-do
-    echo "Waiting for video render...$i"
-    sleep 1
-done
+# pull test videos into pc
+./pull_test_videos.sh
 
-# copy video from devices into pc
-./adb+.sh pull /sdcard/$VIDEO_DIR results/videos
-
+# end
 echo
 echo "Automate tests results is located at ./$BASE_DIR/results in this repo folder"
