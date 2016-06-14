@@ -11,16 +11,16 @@ mkdir results/logs
 mkdir results/videos
 
 # create log
-exec &> >(tee -a "results/logs/run_test+screenrecord.sh.log")
+exec &> >(tee -a "results/logs/run_multi.log")
 
 # prepare video folder on devices
-./adb+.sh shell rm -R /sdcard/$BASE_DIR
-./adb+.sh shell mkdir /sdcard/$BASE_DIR
-./adb+.sh shell mkdir /sdcard/$VIDEO_DIR
+./scripts/adb+.sh shell rm -R /sdcard/$BASE_DIR
+./scripts/adb+.sh shell mkdir /sdcard/$BASE_DIR
+./scripts/adb+.sh shell mkdir /sdcard/$VIDEO_DIR
 
 # run screenrecord
 echo $'\nScreenrecord is starting...'
-./adb+nohup.sh "shell screenrecord /sdcard/$VIDEO_DIR" "$FILE_NAME"
+./scripts/adb+nohup.sh "shell screenrecord /sdcard/$VIDEO_DIR" "$FILE_NAME"
 echo
 
 # call test
@@ -31,10 +31,16 @@ cd $BASE_DIR
 # stop screenrecord
 ps | grep "shell screenrecord" | grep -v grep | awk '{print $1}' | xargs kill -9
 echo $'\nScreenrecord is stopped...'
-echo "Test video is located at /sdcard/$VIDEO_DIR"
+
+# sleep for video render
+for i in `seq 3 1`; do
+    echo "Waiting for video render...$i"
+    sleep 1
+done
 
 # pull test videos into pc
-./pull_test_videos.sh
+echo $'\nPulling test videos into pc...'
+./scripts/adb+.sh pull /sdcard/$VIDEO_DIR results/videos
 
 # end
 echo
