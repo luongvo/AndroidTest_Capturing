@@ -33,6 +33,15 @@ public class MainActivityTest {
     }
 
     @Test
+    public void duplicate1TestUI() throws Exception {
+        testUI();
+        testUI();
+        testUI();
+        testUI();
+        testUI();
+    }
+
+    @Test
     public void testOpenNextScreen() throws Exception {
         Intents.init();
 
