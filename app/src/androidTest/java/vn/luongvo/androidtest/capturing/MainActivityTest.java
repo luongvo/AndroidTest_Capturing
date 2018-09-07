@@ -26,14 +26,14 @@ public class MainActivityTest {
     public ActivityTestRule mActivityRule = new ActivityTestRule(MainActivity.class);
 
     @Test
-    public void testUI() throws Exception {
+    public void testUI() {
         onView(withText("TextView")).check(matches(isDisplayed()));
         onView(withText("CheckBox")).check(matches(isDisplayed()));
         onView(withText("Next Screen")).check(matches(isDisplayed()));
     }
 
     @Test
-    public void duplicate1TestUI() throws Exception {
+    public void duplicate1TestUI() {
         testUI();
         testUI();
         testUI();
@@ -42,7 +42,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOpenNextScreen() throws Exception {
+    public void testOpenNextScreen() {
         Intents.init();
 
         onView(withText("Next Screen")).perform(click());

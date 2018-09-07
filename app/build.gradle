@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "vn.luongvo.androidtest.capturing"
-        minSdkVersion 8
-        targetSdkVersion 23
+        minSdkVersion 14
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -27,13 +27,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.2.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 
-    androidTestCompile 'com.android.support:support-annotations:23.2.0'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support:support-annotations:27.1.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
 }
 
 def coveragePhoneSourceDir = "${project.projectDir}/src/java"
@@ -51,7 +52,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'connectedAndroidTest') {
     }
 
     // use hidden configuration, for details look into JacocoPlugin.groovy
-    jacocoClasspath = project.configurations['androidJacocoAnt']
+    jacocoClasspath = project.configurations['jacocoAnt']
 
     // exclude auto-generated classes and tests
     def fileFilter = ['**/R.class',

@@ -22,7 +22,7 @@ public class NextActivityTest {
     public ActivityTestRule mActivityRule = new ActivityTestRule(NextActivity.class);
 
     @Test
-    public void testUI() throws Exception {
+    public void testUI() {
         onView(withText("TextView")).check(matches(isDisplayed()));
         onView(withText("CheckBox")).check(matches(isDisplayed()));
     }
